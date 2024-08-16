@@ -2,27 +2,6 @@ from dotenv import load_dotenv
 import os
 import openai
 
-
-#Functions
-def list_ize(word):
-    #list type a word
-    listed = []
-    for letter in word:
-        listed.append(letter)
-    
-    return listed
-
-def blanker(list):
-    blanked = []
-    for i in list:
-        blanked.append('_')
-    
-    blanked_string = " ".join(blanked)
-    return blanked_string
-
-# def guess_letter(letter, list, blanked):
-    #find if a letter exists on a list
-
 #API Call
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -35,22 +14,77 @@ response = openai.ChatCompletion.create(
     ]
 )
 
-#This is to get the response
-generated_word = response['choices'][0]['message']['content']
+def lister(word):
+    listed_word = []
+    for i in word:
+        listed_word.append(i)
+    
+    return listed_word
 
-#This is to slice the word
-word_sliced = generated_word.split()
+def blanker(listed_word):
+    blanked = []
+    for i in listed_word:
+        blanked.append('_')
+    
+    return blanked
 
-category = word_sliced[0]
-word = word_sliced[1]
+def display_blanks(blanked):
+    for i in blanked:
+        print(i, end=' ')
 
-print(f'\nCategory: {category}\nWord: {word}')
+def char_check(char, blanked, listed_word, lives):
+    matched = False
+    for index, letter in enumerate(listed_word):
+        if letter == char:
+            blanked[index] = char
+            matched = True
+    
+    if not matched:
+        print(f'The word does not conatain \'{char}\'')
+        lives -= 1
+    
+    return lives
 
-listed_word = list_ize(word)
-blanks = blanker(listed_word)
-print('\n', listed_word, '\n', blanks)
+def word_check(guess, word, lives):
+    if guess == word:
+        print(f'Congratulations! You guessed \'{word}\' correctly')
+        return True, lives
+    
+    else:
+        print(f'{guess} is not the word')
+        lives -= 1
+    
+    return False, lives
 
-# letter_input = str(input("Guess a letter:\t"))
-# letter = letter_input[0]
+def game_handler():
+    #This is to get the response
+    generated_word = response['choices'][0]['message']['content']
 
+    #This is to slice the word
+    word_sliced = generated_word.split()
+    category = word_sliced[0]
+    word = word_sliced[1].lower()
 
+    listed_word = lister(word)
+    blanked = blanker(listed_word)
+    lives = 5
+
+    while lives > 0 and '_' in blanked:
+        print('\nWord to guess:', ' '.join(blanked))
+        print(f'Lives remaining: {lives}')
+
+        guess = input('Guess the letter or the word: ').lower()
+
+        if len(guess) == 1:
+            lives = char_check(guess, blanked, listed_word, lives)
+        else:
+            correct, lives = word_check(guess, word, lives)
+            if correct:
+                break
+        
+    if '_' not in blanked:
+        print(f'\nWell done! You guessed the word \'{word}\'!')
+    elif lives == 0:
+        print(f'\nGame over! The word was \'{word}\'.')
+
+game_handler()
