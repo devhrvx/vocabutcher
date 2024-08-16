@@ -9,11 +9,11 @@ This is my personal project while relearning python. </br></br>
 - [x] ~~API Call~~
 - [x] ~~Word splitter~~
 - [x] ~~Word blanker~~
-- [ ] Guessing mechanic for letters
-- [ ] Guessing mechanic for words
+- [x] ~~Guessing mechanic for letters~~
+- [x] ~~Guessing mechanic for words~~
 - [ ] Draw the stickman
 - [ ] Butchering/lives mechanic
-- [ ] Looping for replay/retry
+- [x] ~~Looping for replay/retry~~
 
 
 ````
