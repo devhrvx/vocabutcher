@@ -11,8 +11,9 @@ This is my personal project while relearning python. </br></br>
 - [x] ~~Word blanker~~
 - [x] ~~Guessing mechanic for letters~~
 - [x] ~~Guessing mechanic for words~~
-- [ ] Draw the stickman
-- [ ] Butchering/lives mechanic
+- [x] ~~Draw the stickman~~
+- [x] ~~Difficulty mechanic~~
+- [x] ~~Butchering/lives mechanic~~
 - [x] ~~Looping for replay/retry~~
 
 
