@@ -176,3 +176,8 @@ def game_handler():
 """)
 
 game_handler()
+
+
+#Hello, this game is made by John Harvey Salinas, I did this to relearn python which is my first programming language but slowly forgot.
+#Because of attempting to relearn this language I am forgetting how to C# and Java :)
+# so... yeah.
